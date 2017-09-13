@@ -8,18 +8,18 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float timeTilDeath;
 
-    [SerializeField]
+    private DamageType damageType;
+
     private float speed;
 
-    [SerializeField]
     private int damage;
 
-    [SerializeField]
     private float headshotMultiplier;
 
     private Rigidbody rigid;
     private float deathTimer;
     private bool destroyed;
+    private GameObject bulletSource;
 
 
     private void Awake()
@@ -46,20 +46,27 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+        IHealth damageable = other.gameObject.GetComponent<IHealth>();
+
+        if (damageable != null)
         {
-            if (EventManager.OnEnemyDestroyed != null)
+            if (EventManager.OnDamagedSomething != null)
             {
-                EventManager.OnEnemyDestroyed(other.name, other.transform);
+                EventManager.OnDamagedSomething(transform.name, other.transform.name, damageType, damage);
             }
 
-            Destroy(other.gameObject);
+            damageable.Damage(bulletSource, damageType, damage);
             Destroy(this.gameObject);
         }
     }
 
-    public void Shoot(Vector3 direction)
+    public void Shoot(Vector3 direction, GameObject source, DamageType type, int bulletDamage, float bulletSpeed, float headshotMultiplier)
     {
+        bulletSource = source;
+        damageType = type;
+        speed = bulletSpeed;
+        this.headshotMultiplier = headshotMultiplier;
         rigid.velocity = direction.normalized * speed;
+        damage = bulletDamage;
     }
 }

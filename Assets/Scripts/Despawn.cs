@@ -8,9 +8,9 @@ public class Despawn : MonoBehaviour {
     {
         if (other.tag == "Enemy")
         {
-            if (EventManager.OnEnemyDestroyed != null)
+            if (EventManager.OnEnemyDespawned != null)
             {
-                EventManager.OnEnemyDestroyed(other.gameObject.name, other.transform);
+                EventManager.OnEnemyDespawned(other.gameObject.name, other.transform);
             }
             Destroy(other.gameObject);
 

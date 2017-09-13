@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeTilDeath: 6
   speed: 40
-  damage: 10
+  damage: 30
   headshotMultiplier: 2
 --- !u!135 &135536645024574742
 SphereCollider:

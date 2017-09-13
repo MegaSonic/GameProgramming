@@ -27,18 +27,28 @@ public class ConsoleWriter : MonoBehaviour {
 
     private void OnDisable()
     {
-        EventManager.OnPlayerFired -= WriteOnPlayerFired;
+        EventManager.OnPlayerFiredGun -= WriteOnPlayerFired;
         EventManager.OnEnemyReachedNode -= WriteOnEnemyReachNode;
         EventManager.OnEnemySpawned -= WriteOnEnemySpawned;
-        EventManager.OnEnemyDestroyed -= WriteOnEnemyDestroyed;
+        EventManager.OnEnemyDespawned -= WriteOnEnemyDestroyed;
+        EventManager.OnEnemyKilled -= WriteOnEnemyKilled;
+        EventManager.OnDamagedSomething -= WriteOnDamagedSomething;
+        EventManager.OnEnemyDamaged -= WriteOnEnemyDamaged;
+        EventManager.OnEnemyHealed -= WriteOnEnemyHealed;
+        EventManager.OnEnemyDodged -= WriteOnEnemyDodged;
     }
 
     private void OnEnable()
     {
-        EventManager.OnPlayerFired += WriteOnPlayerFired;
+        EventManager.OnPlayerFiredGun += WriteOnPlayerFired;
         EventManager.OnEnemyReachedNode += WriteOnEnemyReachNode;
         EventManager.OnEnemySpawned += WriteOnEnemySpawned;
-        EventManager.OnEnemyDestroyed += WriteOnEnemyDestroyed;
+        EventManager.OnEnemyDespawned += WriteOnEnemyDestroyed;
+        EventManager.OnEnemyKilled += WriteOnEnemyKilled;
+        EventManager.OnDamagedSomething += WriteOnDamagedSomething;
+        EventManager.OnEnemyDamaged += WriteOnEnemyDamaged;
+        EventManager.OnEnemyHealed += WriteOnEnemyHealed;
+        EventManager.OnEnemyDodged += WriteOnEnemyDodged;
     }
 
     public void CheckForMaxLines()
@@ -50,9 +60,44 @@ public class ConsoleWriter : MonoBehaviour {
         }
     }
 
-    public void WriteOnPlayerFired(Transform playerPosition)
+    public void WriteOnEnemyKilled(string name, string source, Transform transform)
     {
-        text.text += ("\nPlayer fired. Location: " + playerPosition.position);
+        text.text += String.Format("\nEnemy {0} killed at {1} by source {2}.", name, transform.position, source);
+        currentLines++;
+        CheckForMaxLines();
+    }
+
+    public void WriteOnDamagedSomething(string damageDealer, string damageReceiver, DamageType type, int amount)
+    {
+        text.text += String.Format("\nDamage dealer {0} hit {1} for {2} points of {3} damage before resistance.", damageDealer, damageReceiver, amount, type.ToString());
+        currentLines++;
+        CheckForMaxLines();
+    }
+
+    public void WriteOnEnemyDamaged(string name, string source, Transform transform, DamageType type, int amount)
+    {
+        text.text += String.Format("\nEnemy {0} hit for {1} points of {2} damage, originating from {3}.", name, amount, type.ToString(), source);
+        currentLines++;
+        CheckForMaxLines();
+    }
+
+    public void WriteOnEnemyHealed(string name, Transform transform, int amount)
+    {
+        text.text += String.Format("\nEnemy {0} healed {1} hp.", name, amount);
+        currentLines++;
+        CheckForMaxLines();
+    }
+
+    public void WriteOnEnemyDodged(string name, Transform transform)
+    {
+        text.text += String.Format("\nEnemy {0} dodged an attack.", name);
+        currentLines++;
+        CheckForMaxLines();
+    }
+
+    public void WriteOnPlayerFired(Transform playerPosition, string name)
+    {
+        text.text += ("\nPlayer fired " + name + " gun. Location: " + playerPosition.position);
         currentLines++;
         CheckForMaxLines();
     }
@@ -73,7 +118,7 @@ public class ConsoleWriter : MonoBehaviour {
 
     public void WriteOnEnemyDestroyed(string name, Transform transform)
     {
-        text.text += string.Format("\nEnemy {0} destroyed.", name);
+        text.text += string.Format("\nEnemy {0} despawned.", name);
         currentLines++;
         CheckForMaxLines();
     }
