@@ -10,23 +10,23 @@ public class Enemy : MonoBehaviour, IHealth {
     public GameObject deathVFX;
 
     [SerializeField]
-    private int basePhysicalDefense;
+    public int basePhysicalDefense;
 
     [SerializeField]
-    private int bonusPhysicalDefense;
+    public int bonusPhysicalDefense;
 
     [SerializeField]
-    private int baseMagicalDefense;
+    public int baseMagicalDefense;
 
     [SerializeField]
-    private int bonusMagicalDefense;
+    public int bonusMagicalDefense;
 
     [SerializeField]
     [Range(0, 100)]
-    private int baseDodgeChance;
+    public int baseDodgeChance;
 
     [SerializeField]
-    private int bonusDodgeChance;
+    public int bonusDodgeChance;
 
 
 
@@ -38,7 +38,6 @@ public class Enemy : MonoBehaviour, IHealth {
             {
                 EventManager.OnEnemyDodged(transform.name, transform);
             }
-            Debug.Log("Missed!");
         }
         else
         {
@@ -52,7 +51,7 @@ public class Enemy : MonoBehaviour, IHealth {
 
             currentHealth -= newDamage;
 
-            if (currentHealth < 0)
+            if (currentHealth <= 0)
             {
                 currentHealth = 0;
                 Die(source);
@@ -94,7 +93,10 @@ public class Enemy : MonoBehaviour, IHealth {
             EventManager.OnEnemyKilled(transform.name, source.name, transform);
         }
 
-        Instantiate(deathVFX, this.transform.position, this.transform.rotation);
+        if (deathVFX != null)
+        {
+            Instantiate(deathVFX, this.transform.position, this.transform.rotation);
+        }
         Destroy(this.gameObject);
     }
 

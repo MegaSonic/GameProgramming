@@ -30,6 +30,7 @@ public class Bullet : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        rigid = GetComponent<Rigidbody>();
         deathTimer = 0f;
     }
 
@@ -42,6 +43,12 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+
+    public void SetTimeTilDeath(int value)
+    {
+        timeTilDeath = value;
     }
 
     private void OnTriggerEnter(Collider other)
