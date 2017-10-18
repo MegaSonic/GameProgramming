@@ -9,7 +9,7 @@ public class ServiceWrangler : Singleton<ServiceWrangler> {
 
 
     [SerializeField]
-    private GameObject eventManager;
+    private GameObject loadManager;
     private static Dictionary<string, PrefabBool> singletonPrefabRegistry;
 
     protected override void Awake() {
@@ -17,7 +17,7 @@ public class ServiceWrangler : Singleton<ServiceWrangler> {
         
         singletonPrefabRegistry = new Dictionary<string, PrefabBool>()
         {
-            { typeof(EventManager).ToString(),            new PrefabBool(ref eventManager) }
+            { typeof(LevelToLoad).ToString(),            new PrefabBool(ref loadManager) }
         };
         base.Awake();
     }
