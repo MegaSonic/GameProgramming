@@ -12,13 +12,17 @@ public class PlayerHealth : MonoBehaviour {
     public Transform lossText;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         EventManager.OnEnemyDespawned += EnemyDespawned;
+        EventManager.OnStartGameSave += SavePlayer;
+        EventManager.OnLoadGameSave += LoadPlayer;
 	}
 
     private void OnDestroy()
     {
         EventManager.OnEnemyDespawned -= EnemyDespawned;
+        EventManager.OnStartGameSave -= SavePlayer;
+        EventManager.OnLoadGameSave -= LoadPlayer;
     }
 
     public void EnemyDespawned(string name, Transform transform)
@@ -32,4 +36,41 @@ public class PlayerHealth : MonoBehaviour {
         }
 
     }
+
+    public void SetCurrentHealth(int newHealth)
+    {
+        if (newHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth = newHealth;
+        }
+    }
+
+    public void SavePlayer(ref Game game)
+    {
+        PlayerData player = game.playerData;
+
+        player.position = transform.position;
+        player.rotation = transform.rotation.eulerAngles;
+
+        player.name = "";
+
+        player.health = currentHealth;
+
+        game.playerData = player;
+
+    }
+
+    public void LoadPlayer(Game game)
+    {
+        PlayerData player = game.playerData;
+
+        transform.position = player.position;
+        transform.rotation = Quaternion.Euler(player.rotation);
+        SetCurrentHealth(game.playerData.health);
+    }
+
 }

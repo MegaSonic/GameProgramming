@@ -37,7 +37,7 @@ public class HitscanGun : Gun {
                 LineRenderer line = newLine.GetComponent<LineRenderer>();
                 line.SetPosition(0, emitTransform.position);
                 line.SetPosition(1, hit.collider.ClosestPoint(emitTransform.position));
-                Debug.Log(damage);
+                // Debug.Log(damage);
                 damageable.Damage(transform.root.gameObject, damageType, damage);
 
                 if (EventManager.OnDamagedSomething != null)

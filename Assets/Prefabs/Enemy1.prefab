@@ -220,10 +220,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   speed: 5
   nodeDistanceTolerance: 0.5
+  pathNum: 0
   goingTo: {fileID: 0}
+  i: 0
 --- !u!114 &114707842721272196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,6 +256,7 @@ MonoBehaviour:
   bonusMagicalDefense: 0
   baseDodgeChance: 10
   bonusDodgeChance: 0
+  enemyType: 0
 --- !u!114 &114786136362458988
 MonoBehaviour:
   m_ObjectHideFlags: 1

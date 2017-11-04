@@ -10,10 +10,12 @@ public class TravelPath : MonoBehaviour {
     public float speed;
     public float nodeDistanceTolerance;
 
+    public int pathNum;
+
     public GameObject goingTo;
 
     private Rigidbody rigid;
-    private int i = 0;
+    public int i = 0;
 
     private void Awake()
     {
@@ -58,8 +60,5 @@ public class TravelPath : MonoBehaviour {
         }
 
         rigid.velocity = (goingTo.transform.position - transform.position).normalized * speed;
-
-
-
     }
 }

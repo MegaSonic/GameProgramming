@@ -175,6 +175,7 @@ MonoBehaviour:
   bonusMagicalDefense: 0
   baseDodgeChance: 5
   bonusDodgeChance: 0
+  enemyType: 2
 --- !u!114 &114068652619024810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,7 +233,9 @@ MonoBehaviour:
   - {fileID: 0}
   speed: 4
   nodeDistanceTolerance: 0.5
+  pathNum: 0
   goingTo: {fileID: 0}
+  i: 0
 --- !u!114 &114480939262744816
 MonoBehaviour:
   m_ObjectHideFlags: 1

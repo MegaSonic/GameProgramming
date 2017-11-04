@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour {
-
-    public static EventManager Instance = null;
-
-
+public class EventManager : Singleton<EventManager> {
+    
     public delegate void PlayerFiredGun(Transform playerPosition, string name);
     public static PlayerFiredGun OnPlayerFiredGun;
 
@@ -34,19 +31,9 @@ public class EventManager : MonoBehaviour {
     public delegate void EnemyDespawned(string name, Transform transform);
     public static EnemyDespawned OnEnemyDespawned;
 
-    void Awake()
-    {
+    public delegate void StartGameSave(ref Game game);
+    public static StartGameSave OnStartGameSave;
 
-        if (Instance == null)
-            Instance = this;
-        else if (Instance != this)
-            Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public delegate void LoadGameSave(Game game);
+    public static LoadGameSave OnLoadGameSave;
 }

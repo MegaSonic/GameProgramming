@@ -12,15 +12,25 @@ public class EnemiesKilled : MonoBehaviour {
     [SerializeField]
     private Text text;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
         EventManager.OnEnemyKilled += IncrementEnemies;
+        EventManager.OnStartGameSave += SaveEnemiesKilled;
+        EventManager.OnLoadGameSave += LoadEnemiesKilled;
+    }
+
+    // Use this for initialization
+    void Start () {
+        
+
         text.text = new StringBuilder(enemies.ToString()).ToString();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         EventManager.OnEnemyKilled -= IncrementEnemies;
+        EventManager.OnStartGameSave -= SaveEnemiesKilled;
+        EventManager.OnLoadGameSave -= LoadEnemiesKilled;
     }
 
     // Update is called once per frame
@@ -32,5 +42,19 @@ public class EnemiesKilled : MonoBehaviour {
     {
         enemies++;
         text.text = new StringBuilder(enemies.ToString()).ToString();
+    }
+
+    public void SaveEnemiesKilled(ref Game game)
+    {
+        PlayerData data = game.playerData;
+        data.enemiesKilled = enemies;
+        game.playerData = data;
+    }
+
+    public void LoadEnemiesKilled(Game game)
+    {
+        enemies = game.playerData.enemiesKilled;
+        text.text = new StringBuilder(enemies.ToString()).ToString();
+        Debug.Log("Enemies killed!");
     }
 }

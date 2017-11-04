@@ -28,7 +28,8 @@ public class Enemy : MonoBehaviour, IHealth {
     [SerializeField]
     public int bonusDodgeChance;
 
-
+    [SerializeField]
+    public int enemyType;
 
     public void Damage(GameObject source, DamageType type, int amount)
     {

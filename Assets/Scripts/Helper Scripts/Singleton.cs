@@ -29,6 +29,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     #endregion
 
     #region Protected Fields
+
+    [SerializeField]
     protected bool shouldRegister = true;
     #endregion
 
@@ -39,19 +41,27 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     #endregion
 
     #region Unity Lifecycle Functions
-    protected virtual void Awake() {
+    protected virtual void Awake()
+    {
         if (instance == null)
         {
             instance = this as T;
-            if(shouldRegister) {
-                ServiceWrangler.Instance.RegisterSingleton(instance);
+            if (Application.isPlaying)
+            {
+                if (shouldRegister)
+                {
+                    if (ServiceWrangler.Instance != null)
+                        ServiceWrangler.Instance.RegisterSingleton(instance);
+                }
+
+                DontDestroyOnLoad(gameObject);
             }
-            DontDestroyOnLoad(gameObject);
         }
-        else {
+        else
+        {
             guard = true;
             Destroy(gameObject);
-            Debug.LogWarning("Destroying duplicate singleton " + typeof(T) +"!");
+            Debug.LogWarning("Destroying duplicate singleton " + typeof(T) + "!");
         }
     }
     /// <summary>
@@ -64,9 +74,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     /// </summary>
     public void OnDestroy()
     {
-        if (!guard) {
+        if (!guard)
+        {
             applicationIsQuitting = true;
-        } else
+        }
+        else
         {
             guard = false;
         }

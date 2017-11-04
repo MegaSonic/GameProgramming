@@ -9,23 +9,34 @@ public class ServiceWrangler : Singleton<ServiceWrangler> {
 
 
     [SerializeField]
-    private GameObject loadManager;
-    private static Dictionary<string, PrefabBool> singletonPrefabRegistry;
+    private GameObject loadManager, saveLoad, eventManager;
 
-    protected override void Awake() {
-        Application.targetFrameRate = 60;
-        
-        singletonPrefabRegistry = new Dictionary<string, PrefabBool>()
+    private Dictionary<string, PrefabBool> singletonPrefabRegistry;
+    private Dictionary<string, PrefabBool> SingletonPrefabRegistry
+    {
+        get
         {
-            { typeof(LevelToLoad).ToString(),            new PrefabBool(ref loadManager) }
-        };
-        base.Awake();
+            if (singletonPrefabRegistry == null)
+            {
+                singletonPrefabRegistry = new Dictionary<string, PrefabBool>()
+                {
+                    { typeof(LevelToLoad).ToString(),            new PrefabBool(ref loadManager) },
+                    { typeof(SaveLoad).ToString(),               new PrefabBool(ref saveLoad) },
+                    { typeof(EventManager).ToString(),           new PrefabBool(ref eventManager) }
+                };
+            }
+            return singletonPrefabRegistry;
+        }
     }
 
-    private void Start() {
-        foreach (KeyValuePair<string, PrefabBool> singletonRegistered in singletonPrefabRegistry) {
-            if (!singletonRegistered.Value.isRegistered) {
-                GameObject singletonGameObject = Instantiate(singletonRegistered.Value.prefab, null, true) as GameObject;
+
+    private void OnEnable()
+    {
+        foreach (KeyValuePair<string, PrefabBool> singletonRegistered in SingletonPrefabRegistry)
+        {
+            if (!singletonRegistered.Value.isRegistered)
+            {
+                GameObject singletonGameObject = Instantiate(singletonRegistered.Value.prefab, gameObject.transform, true) as GameObject;
                 singletonGameObject.transform.position = Vector3.zero;
                 singletonGameObject.transform.rotation = Quaternion.identity;
 
@@ -36,15 +47,16 @@ public class ServiceWrangler : Singleton<ServiceWrangler> {
     }
 
 
-    public void RegisterSingleton<T> (T singleton) where T : MonoBehaviour
+    public void RegisterSingleton<T>(T singleton) where T : MonoBehaviour
     {
         string typeString = typeof(T).ToString();
 
-        if (singletonPrefabRegistry.ContainsKey(typeString) && !singletonPrefabRegistry[typeString].isRegistered)
+        if (SingletonPrefabRegistry.ContainsKey(typeString) && !SingletonPrefabRegistry[typeString].isRegistered)
         {
-            singletonPrefabRegistry[typeString].isRegistered = true;
+            SingletonPrefabRegistry[typeString].isRegistered = true;
         }
-        else if (typeString != (typeof(ServiceWrangler)).ToString()) {            
+        else if (typeString != (typeof(ServiceWrangler)).ToString())
+        {
             string debugMessage = typeString + " attempting duplicate or unprepared service registry. Add this singleton to the singletonPrefabRegistry";
             Debug.LogFormat("<color=#ffff00>" + debugMessage + "</color>");
         }
