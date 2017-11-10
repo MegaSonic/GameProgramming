@@ -19,4 +19,10 @@ V key toggles a third person view camera.
 The in-game UI has 3 elements: a player health bar, the current amount of time that you've survived in the level, and the number of enemies you've killed.
 
 
+REST API: This game now uses a REST API that allows a player to upload and download a save file to a server. Create an account first, and then you can select a save file from the dropdown menu and click the 'Send Save to Server' button to upload it. Then you can click the Get Cloud Save button to download it from any computer.
+
+
+
+
+
 The game scripts are broken up into Model, View, and Controller scripts, with an additional folder for general Helper scripts – things that are useful no matter what the game is. These things include stuff like a Singleton script, a Service Wrangler script, and a serializable Vector3 extension.
