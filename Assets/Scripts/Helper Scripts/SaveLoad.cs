@@ -13,6 +13,8 @@ public class SaveLoad : Singleton<SaveLoad> {
 
     public bool loadGame;
 
+    public Game cloudSave;
+
     public void Save(Game gameToSave)
     {
         savedGames.Add(gameToSave);
