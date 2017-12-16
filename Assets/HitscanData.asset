@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c41736a9607bafb4d8701eef2c8500a7, type: 3}
+  m_Name: HitscanData
+  m_EditorClassIdentifier: 
+  gunType: 3
+  gunLevelData:
+  - level: 1
+    possibleDamageTypes: 0000000001000000
+    minHeadshotMultiplier: 2
+    maxHeadshotMultiplier: 3
+    damageMinimum: 20
+    damageMaximum: 30
+    damageRangeMinimum: 5
+    damageRangeMaximum: 10
+    minCooldown: 0.4
+    maxCooldown: 0.5
+  - level: 2
+    possibleDamageTypes: 0000000001000000
+    minHeadshotMultiplier: 2
+    maxHeadshotMultiplier: 3
+    damageMinimum: 30
+    damageMaximum: 40
+    damageRangeMinimum: 5
+    damageRangeMaximum: 10
+    minCooldown: 0.35
+    maxCooldown: 0.45
+  - level: 3
+    possibleDamageTypes: 0000000001000000
+    minHeadshotMultiplier: 2
+    maxHeadshotMultiplier: 3
+    damageMinimum: 40
+    damageMaximum: 50
+    damageRangeMinimum: 5
+    damageRangeMaximum: 10
+    minCooldown: 0.3
+    maxCooldown: 0.4

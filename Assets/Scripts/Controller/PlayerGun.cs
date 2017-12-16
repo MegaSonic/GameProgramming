@@ -11,12 +11,16 @@ public class PlayerGun : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        currentGun = GetComponentInChildren<Gun>();
+        if (!currentGun)
+        {
+            currentGun = equippedGuns[0];
+            currentGun.gameObject.SetActive(true);
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
             if (currentGun != null)
             {
@@ -42,12 +46,30 @@ public class PlayerGun : MonoBehaviour {
         {
             EquipGun(1);
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            EquipGun(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            EquipGun(3);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            EquipGun(4);
+        }
     }
 
     public void EquipGun(int slot)
     {
-        currentGun.gameObject.SetActive(false);
-        equippedGuns[slot].gameObject.SetActive(true);
-        currentGun = equippedGuns[slot].gameObject.GetComponent<Gun>();
+        if (currentGun != equippedGuns[slot])
+        {
+            currentGun.gameObject.SetActive(false);
+            equippedGuns[slot].gameObject.SetActive(true);
+            currentGun = equippedGuns[slot].gameObject.GetComponent<Gun>();
+        }
     }
 }

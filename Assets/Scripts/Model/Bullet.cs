@@ -6,20 +6,20 @@ public class Bullet : MonoBehaviour
 {
 
     [SerializeField]
-    private float timeTilDeath;
+    protected float timeTilDeath;
 
-    private DamageType damageType;
+    protected DamageType damageType;
 
-    private float speed;
+    protected float speed;
 
-    private int damage;
+    protected int damage;
 
-    private float headshotMultiplier;
+    protected float headshotMultiplier;
 
-    private Rigidbody rigid;
-    private float deathTimer;
-    private bool destroyed;
-    private GameObject bulletSource;
+    protected Rigidbody rigid;
+    protected float deathTimer;
+    protected bool destroyed;
+    protected GameObject bulletSource;
 
 
     private void Awake()

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0983d97fc2e6d454784883d56e8b5ac3, type: 3}
+  m_Name: MissileData
+  m_EditorClassIdentifier: 
+  gunType: 1
+  gunLevelData:
+  - level: 1
+    possibleDamageTypes: 0000000001000000
+    minBulletSpeed: 40
+    maxBulletSpeed: 45
+    minHeadshotMultiplier: 2
+    maxHeadshotMultiplier: 2
+    damageMinimum: 20
+    damageMaximum: 25
+    damageRangeMinimum: 10
+    damageRangeMaximum: 15
+    minCooldown: 0.8
+    maxCooldown: 1
+    splashDamageMin: 10
+    splashDamageMax: 15
+    coreRadiusMin: 5
+    coreRadiusMax: 10
+    splashRadiusMin: 5
+    splashRadiusMax: 10
+  - level: 2
+    possibleDamageTypes: 0000000001000000
+    minBulletSpeed: 40
+    maxBulletSpeed: 50
+    minHeadshotMultiplier: 2
+    maxHeadshotMultiplier: 2
+    damageMinimum: 30
+    damageMaximum: 35
+    damageRangeMinimum: 10
+    damageRangeMaximum: 15
+    minCooldown: 0.7
+    maxCooldown: 0.9
+    splashDamageMin: 20
+    splashDamageMax: 25
+    coreRadiusMin: 5
+    coreRadiusMax: 10
+    splashRadiusMin: 5
+    splashRadiusMax: 15
+  - level: 3
+    possibleDamageTypes: 0000000001000000
+    minBulletSpeed: 50
+    maxBulletSpeed: 60
+    minHeadshotMultiplier: 2
+    maxHeadshotMultiplier: 2
+    damageMinimum: 40
+    damageMaximum: 45
+    damageRangeMinimum: 10
+    damageRangeMaximum: 15
+    minCooldown: 0.6
+    maxCooldown: 0.8
+    splashDamageMin: 30
+    splashDamageMax: 35
+    coreRadiusMin: 10
+    coreRadiusMax: 15
+    splashRadiusMin: 5
+    splashRadiusMax: 15
